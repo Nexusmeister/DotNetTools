@@ -1,0 +1,35 @@
+﻿{
+   "ContextClassName": "BackupDbContext",
+   "ContextNamespace": "",
+   "DefaultDacpacSchema": null,
+   "DoNotCombineNamespace": false,
+   "IdReplace": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": "",
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProjectRootNamespace": "Tools.Core",
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[BackupAufgaben]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[BackupSchedule]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[OneDriveBereiche]"
+      }
+   ],
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseSpatial": false
+}
