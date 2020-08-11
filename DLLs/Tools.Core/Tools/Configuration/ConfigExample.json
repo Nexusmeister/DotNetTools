@@ -1,0 +1,13 @@
+{
+  "quellOrdner": "C:\\sourceFoo\\",
+  "zielOrdner": "E:\\Target\\Foo\\AnotherFooBackup\\",
+  "emailUser": {
+    "mailPasswordEncrypted": "foooooo",
+    "mailPasswordDecrypted": null,
+    "mailUser": "notificationmailer@foo.com",
+    "encryptPassPhrase": "fooPassPhrase",
+    "SmtpServer": "smtp.mail.com",
+    "SmtpPort": 123,
+    "StandardEmpfaenger": "standard@mail.com"
+  }
+}
