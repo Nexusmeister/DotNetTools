@@ -60,6 +60,7 @@
     <Folder Include="SchemaCompare" />
     <Folder Include="Tables\Administration" />
     <Folder Include="Tables\Backup" />
+    <Folder Include="Tables\TimeTracker" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Administration\Customizing.sql" />
@@ -67,6 +68,7 @@
     <Build Include="Tables\Backup\OneDriveBereiche.sql" />
     <Build Include="Tables\Backup\BackupAufgaben.sql" />
     <Build Include="Tables\Backup\BackupSchedule.sql" />
+    <Build Include="Tables\TimeTracker\StundenErfassungen.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchemaCompare\CompareToAzure.scmp" />
