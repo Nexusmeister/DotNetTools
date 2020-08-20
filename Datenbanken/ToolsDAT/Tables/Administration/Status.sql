@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Status]
 (
-	[Id] INT NOT NULL , 
+	[Id] INT IDENTITY(1,1) NOT NULL , 
     [Tabelle] VARCHAR(50) NOT NULL, 
     [Spalte] VARCHAR(50) NOT NULL, 
     [Status] INT NOT NULL, 

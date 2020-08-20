@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Customizing]
 (
-	[Id] INT NOT NULL , 
+	[Id] INT IDENTITY(1,1) NOT NULL , 
     [Beschreibung] VARCHAR(250) NOT NULL, 
     [Anlagedatum] DATETIME NOT NULL DEFAULT GETDATE(), 
     [Aenderungsdatum] DATETIME NULL, 
