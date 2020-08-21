@@ -1,11 +1,42 @@
 ﻿using System;
+using Tools.Core.Infrastructure;
 using Tools.Core.Models.Tools.TimeTracker;
 
 namespace TimeTracker.ViewModels
 {
-    public class TimeTrackerViewModel
+    public class TimeTrackerViewModel : BaseViewModel
     {
-        public TimeSpan ArbeitszeitTimer { get; set; }
-        public StundenErfassung StundenErfassung { get; set; }
+        private TimeSpan _arbeitszeitTimer;
+        private StundenErfassung _stundenErfassung;
+
+        public TimeSpan ArbeitszeitTimer
+        {
+            get => _arbeitszeitTimer;
+            set
+            {
+                if (value.TotalSeconds <= _arbeitszeitTimer.TotalSeconds)
+                {
+                    return;
+                }
+
+                _arbeitszeitTimer = value;
+                OnPropertyChanged(nameof(ArbeitszeitTimer));
+            }
+        }
+
+        public StundenErfassung StundenErfassung
+        {
+            get => _stundenErfassung;
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                _stundenErfassung = value;
+                OnPropertyChanged(nameof(StundenErfassung));
+            }
+        }
     }
 }
