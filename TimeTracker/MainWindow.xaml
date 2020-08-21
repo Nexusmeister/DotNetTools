@@ -4,14 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeTracker"
+        xmlns:viewModels="clr-namespace:TimeTracker.ViewModels"
         mc:Ignorable="d"
         Title="TimeTracker" Height="450" Width="800">
+
     <Grid>
         <Border BorderThickness="2" BorderBrush="Black" Margin="228,11,312,337" HorizontalAlignment="Center">
             <Label x:Name="TxtCounter" HorizontalContentAlignment="Center" FontSize="48" FontWeight="Bold" BorderThickness="2" Margin="0,1,-2,-2" HorizontalAlignment="Right" Width="258">
-                <Run Language="de-de" Text="HH:mm:ss"/>
+                <Run Language="de-de" d:Text="HH:mm:ss" Text="{Binding Path=ArbeitszeitTimer}"/>
             </Label>
         </Border>
+
+        <TextBlock Text="{Binding ArbeitszeitTimer}"></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="215,274,0,0" Text="{Binding ArbeitszeitTimer}" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
 
     </Grid>
