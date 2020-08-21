@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{765BDAE1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneDriveBackup", "Tools\OneDriveBackup\OneDriveBackup.csproj", "{C109C45B-0515-4BFC-81F2-9F86CBB00AB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker", "TimeTracker\TimeTracker.csproj", "{28EE8E49-1C72-4EAB-B86B-CB0251D63A7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{C109C45B-0515-4BFC-81F2-9F86CBB00AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C109C45B-0515-4BFC-81F2-9F86CBB00AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C109C45B-0515-4BFC-81F2-9F86CBB00AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28EE8E49-1C72-4EAB-B86B-CB0251D63A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28EE8E49-1C72-4EAB-B86B-CB0251D63A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28EE8E49-1C72-4EAB-B86B-CB0251D63A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28EE8E49-1C72-4EAB-B86B-CB0251D63A7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{FDDDD7D6-AEC8-469C-87D2-4FDF77000DE4} = {6BBC3F90-0AEC-4874-9003-5403C206D636}
 		{95D4D1A8-C60F-4B92-92EB-386620F7897B} = {13726097-5ABE-4D6A-BABE-6A423186CB04}
 		{C109C45B-0515-4BFC-81F2-9F86CBB00AB6} = {765BDAE1-4587-489F-9B4D-433B762F9416}
+		{28EE8E49-1C72-4EAB-B86B-CB0251D63A7D} = {765BDAE1-4587-489F-9B4D-433B762F9416}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F574304-1260-4B0F-8873-E82E90082E29}
