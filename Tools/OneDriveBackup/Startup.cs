@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tools.Core.Datenzugriff.Administration.Datenzugriff.Administration;
+using Tools.Core.Datenzugriff.Repositories.Administration.Implementations;
+using Tools.Core.Datenzugriff.Repositories.Administration.Interfaces;
 using Tools.Core.Tools.Configuration;
 
 namespace OneDriveBackup
@@ -22,6 +24,9 @@ namespace OneDriveBackup
         private void ConfigureServices(IServiceCollection service, DbContextOptionsBuilder optionsBuilder)
         {
             service.AddDbContext<AdministrationDbContext>(o => o.UseSqlServer(Config.DatabaseConnection));
+
+            service.AddSingleton<IStatusRepository, StatusRepository>();
+            service.AddSingleton<ICustomizingRepository, CustomizingRepository>();
         }
     }
 }
