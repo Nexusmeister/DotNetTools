@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DLLs\Tools.Core\Tools.Core.csproj" />
+  </ItemGroup>
+
 </Project>
