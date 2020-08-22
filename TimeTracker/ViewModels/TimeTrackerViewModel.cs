@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tools.Core.Datenzugriff.Repositories.Tools.TimeTracker.Interfaces;
@@ -17,8 +18,23 @@ namespace TimeTracker.ViewModels
         
         private StundenErfassung _stundenErfassung;
         private Stopwatch _stopwatch;
+        private DispatcherTimer _dispatcherTimer;
+        private TimeSpan _arbeitszeitTimer;
 
-        public TimeSpan ArbeitszeitTimer => Stopwatch.Elapsed;
+        public TimeSpan ArbeitszeitTimer
+        {
+            get => _arbeitszeitTimer;
+            set
+            {
+                if (Math.Abs(_arbeitszeitTimer.TotalSeconds - value.TotalSeconds) < 0)
+                {
+                    return;
+                }
+
+                _arbeitszeitTimer = value;
+                OnPropertyChanged(nameof(ArbeitszeitTimer));
+            }
+        }
 
         public StundenErfassung StundenErfassung
         {
@@ -57,6 +73,21 @@ namespace TimeTracker.ViewModels
             }
         }
 
+        public DispatcherTimer DispatcherTimer
+        {
+            get => _dispatcherTimer;
+            set
+            {
+                if (_dispatcherTimer == value)
+                {
+                    return;
+                }
+
+                _dispatcherTimer = value;
+                OnPropertyChanged(nameof(DispatcherTimer));
+            }
+        }
+
         public TimeTrackerViewModel()
         {
             _stundenErfassungRepository = Startup.ServiceProvider.GetService<IStundenErfassungRepository>();
@@ -81,6 +112,13 @@ namespace TimeTracker.ViewModels
         private void InitialisiereTimer()
         {
             Stopwatch = Stopwatch.StartNew();
+            DispatcherTimer = new DispatcherTimer(DispatcherPriority.Render);
+            DispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+            DispatcherTimer.Tick += (sender, args) =>
+            {
+                ArbeitszeitTimer = Stopwatch.Elapsed;
+            };
+            DispatcherTimer.Start();
         }
     }
 }

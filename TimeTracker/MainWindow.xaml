@@ -9,9 +9,17 @@
         Title="TimeTracker" Height="450" Width="800">
 
     <Grid>
-        <Border BorderThickness="2" BorderBrush="Black" Margin="228,11,312,337" HorizontalAlignment="Center">
+        <Border BorderThickness="2" BorderBrush="Black" Margin="0,11,312,0" Height="86" VerticalAlignment="Top" HorizontalAlignment="Right" Width="260">
             <Label x:Name="TxtCounter" HorizontalContentAlignment="Center" FontSize="48" FontWeight="Bold" BorderThickness="2" Margin="0,1,-2,-2" HorizontalAlignment="Right" Width="258">
-                <Run Language="de-de" d:Text="HH:mm:ss" Text="{Binding Path=ArbeitszeitTimer, Mode=OneWay}"/>
+                <Run Language="de-de" d:Text="HH:mm:ss">
+                    <Run.Text>
+                        <MultiBinding StringFormat="{}{0:00}:{1:00}:{2:00}">
+                            <Binding Path="ArbeitszeitTimer.Hours" Mode="OneWay"/>
+                            <Binding Path="ArbeitszeitTimer.Minutes" Mode="OneWay"/>
+                            <Binding Path="ArbeitszeitTimer.Seconds" Mode="OneWay"/>
+                        </MultiBinding>
+                    </Run.Text>
+                </Run>
             </Label>
         </Border>
 
