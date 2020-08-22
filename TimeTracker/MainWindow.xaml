@@ -44,6 +44,41 @@
             ItemsSource="{Binding ErfassungsArten, Mode=OneWay}"
             SelectedItem="{Binding ErfassungsArtSelected}">
         </ComboBox>
+        <GroupBox Header="Erfassungsinfos" x:Name="GbInfos"
+                  Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Grid.RowSpan="2" 
+                  Margin="10,10,10,10">
+            <GroupBox.Content>
+                <Grid d:ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="104*"></ColumnDefinition>
+                        <ColumnDefinition Width="147*"></ColumnDefinition>
+                        <ColumnDefinition Width="125*"></ColumnDefinition>
+                        <ColumnDefinition Width="125*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="25"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="ErfassungsNr: " Grid.Row="0" Grid.Column="0" />
+                    <Label Content="Erfassungsdatum:" Grid.Row="1" Grid.Column="0"/>
+                    <Label d:Content="9999"  Content="{Binding StundenErfassung.Id, Mode=OneWay}" Grid.Row="0" Grid.Column="1"></Label>
+                    <Label d:Content="21.01.2020" Content="{Binding StundenErfassung.Erfassungsdatum, Mode=OneWay}" 
+                           ContentStringFormat="{}{0:dd.MM.yyyy}"
+                           Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="Notizen:"
+                        Grid.Row="2" Grid.Column="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <TextBlock 
+                        Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+                        d:Text="Testnotizen"
+                        Text="{Binding Stundenerfassung.Notizen}">
+                    </TextBlock>
+
+                </Grid>
+            </GroupBox.Content>
+        </GroupBox>
 
 
     </Grid>
