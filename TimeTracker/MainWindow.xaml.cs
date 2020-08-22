@@ -46,7 +46,7 @@ namespace TimeTracker
                 return;
             }
 
-            if (DataContext is TimeTrackerViewModel vm)
+            if (DataContext is TimeTrackerViewModel vm && Startup.Config.Betriebsmodus == Betriebsmodus.Produktiv)
             {
                 var erfassung = vm.StundenErfassung;
                 EMail.VersendeMail($"Erfasste Zeit: {vm.ArbeitszeitTimer}", "[TimeTracker] Arbeitszeit wurde erfasst!");

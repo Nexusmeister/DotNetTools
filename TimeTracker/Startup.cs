@@ -10,7 +10,7 @@ namespace TimeTracker
 {
     public class Startup
     {
-        public TimeTrackerConfig Config { get; set; }
+        public static TimeTrackerConfig Config { get; set; }
         public static IServiceProvider ServiceProvider { get; set; }
 
         public Startup(TimeTrackerConfig config)
