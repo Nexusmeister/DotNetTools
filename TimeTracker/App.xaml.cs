@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Tools.Core.Datenzugriff.Repositories.Tools.TimeTracker.Implementations;
 using Tools.Core.Datenzugriff.Repositories.Tools.TimeTracker.Interfaces;
+using Tools.Core.Tools;
 using Tools.Core.Tools.Configuration;
 
 namespace TimeTracker
@@ -23,6 +24,7 @@ namespace TimeTracker
             base.OnStartup(e);
             var config = new TimeTrackerConfig().GetConfig();
             Startup = new Startup(config);
+            EMail.Credentials = config.EmailUser;
         }
     }
 }

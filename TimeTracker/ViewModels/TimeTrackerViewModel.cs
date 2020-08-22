@@ -139,8 +139,10 @@ namespace TimeTracker.ViewModels
         private void InitialisiereTimer()
         {
             Stopwatch = Stopwatch.StartNew();
-            DispatcherTimer = new DispatcherTimer(DispatcherPriority.Render);
-            DispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+            DispatcherTimer = new DispatcherTimer(DispatcherPriority.Render)
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             DispatcherTimer.Tick += (sender, args) =>
             {
                 ArbeitszeitTimer = Stopwatch.Elapsed;

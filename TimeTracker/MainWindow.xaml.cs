@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ using TimeTracker.ViewModels;
 using Tools.Core.Datenzugriff.Repositories.Tools.TimeTracker.Interfaces;
 using Tools.Core.Enums;
 using Tools.Core.Models.Tools.TimeTracker;
+using Tools.Core.Tools;
 
 namespace TimeTracker
 {
@@ -34,6 +36,21 @@ namespace TimeTracker
         {
             InitializeComponent();
             DataContext = new TimeTrackerViewModel();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if (e.Cancel)
+            {
+                return;
+            }
+
+            if (DataContext is TimeTrackerViewModel vm)
+            {
+                var erfassung = vm.StundenErfassung;
+                EMail.VersendeMail($"Erfasste Zeit: {vm.ArbeitszeitTimer}", "[TimeTracker] Arbeitszeit wurde erfasst!");
+            }
         }
     }
 }
