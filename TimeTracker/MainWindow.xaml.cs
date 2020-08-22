@@ -28,42 +28,12 @@ namespace TimeTracker
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IStundenErfassungRepository _stundenErfassungRepository;
-
         private Stopwatch sw;
 
         public MainWindow()
         {
             InitializeComponent();
-            _stundenErfassungRepository = Startup.ServiceProvider.GetService<IStundenErfassungRepository>();
-
-            _ = ErstelleNeuenArbeitstag();
-            StarteArbeitsTimer();
-        }
-
-
-        private async Task ErstelleNeuenArbeitstag()
-        {
-            await _stundenErfassungRepository.Insert(new StundenErfassung
-            {
-                BeginnArbeit = DateTime.Now,
-                ErfassungsArt = StundenerfassungsArt.Arbeit
-            });
-
-            var erfassung =  await _stundenErfassungRepository.GetAll()
-                .Where(x => x.Erfassungsdatum.Equals(DateTime.Today) && x.EndeArbeit == null)
-                .FirstOrDefaultAsync();
-
-            DataContext = new TimeTrackerViewModel(erfassung);
-        }
-
-        private void StarteArbeitsTimer()
-        {
-            if (DataContext is TimeTrackerViewModel vm)
-            {
-                _ = vm.ArbeitszeitTimer;
-            }
-            
+            DataContext = new TimeTrackerViewModel();
         }
     }
 }
