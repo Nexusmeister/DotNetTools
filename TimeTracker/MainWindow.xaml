@@ -37,6 +37,15 @@
                 </Run.Text>
             </Run>
         </Label>
+        <ComboBox x:Name="CboErfassungsart"
+            Grid.Row="0" Grid.Column="2" 
+            HorizontalAlignment="Center" VerticalAlignment="Top" 
+            Margin="0,33,0,0" Width="243"
+            ItemsSource="{Binding ErfassungsArten, Mode=OneWay}"
+            SelectedItem="{Binding ErfassungsArtSelected}">
+        </ComboBox>
+
+
     </Grid>
 
 

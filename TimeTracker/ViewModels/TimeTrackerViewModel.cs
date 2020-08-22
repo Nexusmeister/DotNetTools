@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +22,7 @@ namespace TimeTracker.ViewModels
         private Stopwatch _stopwatch;
         private DispatcherTimer _dispatcherTimer;
         private TimeSpan _arbeitszeitTimer;
+        private StundenerfassungsArt _erfassungsArtSelected = StundenerfassungsArt.Unbekannt;
 
         public TimeSpan ArbeitszeitTimer
         {
@@ -48,6 +51,9 @@ namespace TimeTracker.ViewModels
 
                 _stundenErfassung = value;
                 OnPropertyChanged(nameof(StundenErfassung));
+
+                _erfassungsArtSelected = value.ErfassungsArt;
+                OnPropertyChanged(nameof(ErfassungsArtSelected));
             }
         }
 
@@ -85,6 +91,27 @@ namespace TimeTracker.ViewModels
 
                 _dispatcherTimer = value;
                 OnPropertyChanged(nameof(DispatcherTimer));
+            }
+        }
+
+        public IEnumerable<StundenerfassungsArt> ErfassungsArten =>
+            Enum.GetValues(typeof(StundenerfassungsArt))
+                .Cast<StundenerfassungsArt>();
+
+        public StundenerfassungsArt ErfassungsArtSelected
+        {
+            get => _erfassungsArtSelected;
+            set
+            {
+                if (_erfassungsArtSelected == value)
+                {
+                    return;
+                }
+
+                _erfassungsArtSelected = value;
+                OnPropertyChanged(nameof(ErfassungsArtSelected));
+                StundenErfassung.ErfassungsArt = value;
+                OnPropertyChanged(nameof(StundenErfassung));
             }
         }
 
