@@ -51,8 +51,7 @@ namespace BachelorAdmin
                 var di = new DirectoryInfo(config.UnzipOrdner);
                 if (di.GetFiles().Length == 0)
                 {
-                    timestamp = null;
-                    ExtractFiles(config, aktuellesFile, appdatafile, timestamp);
+                    ExtractFiles(config, aktuellesFile, appdatafile, null);
                     return;
                 }
 
