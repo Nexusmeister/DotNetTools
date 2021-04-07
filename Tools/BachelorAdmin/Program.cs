@@ -23,6 +23,15 @@ namespace BachelorAdmin
                 var files = v.GetFiles().ToList();
                 var aktuellesFile = files.OrderByDescending(x => x.CreationTime).ToList().FirstOrDefault();
 
+                if (AppContext.BaseDirectory.Contains("Debug"))
+                {
+                    config.UnzipOrdner = AppContext.BaseDirectory + "UnzipResult";
+                    if (!Directory.Exists(config.UnzipOrdner))
+                    {
+                        Directory.CreateDirectory(config.UnzipOrdner);
+                    }
+                }
+
                 // Falls aus irgendwelchen Gründen, der Ordner im OneDrive nicht mehr existiert
                 if (!Directory.Exists(config.UnzipOrdner))
                 {
