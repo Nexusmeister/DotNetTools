@@ -75,6 +75,11 @@ namespace Tools.Core.Tools
                 message.Subject = "[Kein Empfänger angegeben]";
             }
 
+            if (AppContext.BaseDirectory.Contains("Debug"))
+            {
+                message.Subject = "[DEV]";
+            }
+
             if (!string.IsNullOrWhiteSpace(message.Subject))
             {
                 message.Subject += string.IsNullOrWhiteSpace(betreff) ? " Toolkit Notification" : " " + betreff;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -24,12 +23,27 @@ namespace BachelorAdmin
                 var files = v.GetFiles().ToList();
                 var aktuellesFile = files.OrderByDescending(x => x.CreationTime).ToList().FirstOrDefault();
 
+                if (AppContext.BaseDirectory.Contains("Debug"))
+                {
+                    config.UnzipOrdner = AppContext.BaseDirectory + "UnzipResult";
+                    if (!Directory.Exists(config.UnzipOrdner))
+                    {
+                        Directory.CreateDirectory(config.UnzipOrdner);
+                    }
+                }
+
+                // Falls aus irgendwelchen Gründen, der Ordner im OneDrive nicht mehr existiert
+                if (!Directory.Exists(config.UnzipOrdner))
+                {
+                    Directory.CreateDirectory(config.UnzipOrdner);
+                }
+
                 if (aktuellesFile is null)
                 {
                     EMail.VersendeMail(
                         $"Quellverzeichnis ist leer! Bitte Verzeichnis prüfen! <br/>Quellpfad: {config.Backupquelle}",
                         "[BachelorAdmin] Quellverzeichnis vermutlich leer!");
-                    Environment.Exit(0);
+                    return;
                 }
 
                 // Öffne File mit Datum
@@ -43,35 +57,47 @@ namespace BachelorAdmin
 
                 var timestamp = JsonConvert.DeserializeObject<TimestampDTO>(File.ReadAllText(appdatafile));
 
+                var di = new DirectoryInfo(config.UnzipOrdner);
+                if (di.GetFiles().Length == 0)
+                {
+                    ExtractFiles(config, aktuellesFile, appdatafile, null);
+                    return;
+                }
+
                 if (timestamp is not null && aktuellesFile.CreationTime <= timestamp.LetztesDatum)
                 {
                     // Log mit
                     //var logger = new ToolsLogger();
-                    Environment.Exit(0);
+                    return;
                 }
 
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-                // Temporär auskommentiert -> Muss schauen, wie die ZIP-Datei kodiert wird
-                //ZipFile.ExtractToDirectory(aktuellesFile.FullName, config.UnzipOrdner, 
-                //    Encoding.GetEncoding(1250, EncoderFallback.ReplacementFallback, DecoderFallback.ReplacementFallback), true);
-                ZipFile.ExtractToDirectory(aktuellesFile.FullName, config.UnzipOrdner, true);
-
-                var jsonoutput = JsonConvert.SerializeObject(new TimestampDTO
-                {
-                    LetztesDatum = aktuellesFile.CreationTime
-                });
-
-                File.WriteAllText(appdatafile, jsonoutput);
-
-                var mailinhalt = "Neue Version der Bachelorarbeit vorhanden und aktualisiert! <br/>" +
-                                 $"Datum: <b>{timestamp?.LetztesDatum} -> {aktuellesFile.LastWriteTime}</b>";
-                EMail.VersendeMail(mailinhalt, "[BachelorAdmin] Neue Bachelorversion verfügbar!");
+                ExtractFiles(config, aktuellesFile, appdatafile, timestamp);
             }
             catch (Exception e)
             {
                 EMail.VersendeMail($"Fehler in Anwendung aufgetaucht: {e}", "[BachelorAdmin] Fehler in Anwendung!");
             }
+        }
+
+        private static void ExtractFiles(BachelorAdminConfig config, FileSystemInfo aktuellesFile, string appdatafile, TimestampDTO timestamp)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            // Temporär auskommentiert -> Muss schauen, wie die ZIP-Datei kodiert wird
+            //ZipFile.ExtractToDirectory(aktuellesFile.FullName, config.UnzipOrdner, 
+            //    Encoding.GetEncoding(1250, EncoderFallback.ReplacementFallback, DecoderFallback.ReplacementFallback), true);
+            ZipFile.ExtractToDirectory(aktuellesFile.FullName, config.UnzipOrdner, true);
+
+            var jsonoutput = JsonConvert.SerializeObject(new TimestampDTO
+            {
+                LetztesDatum = aktuellesFile.CreationTime
+            });
+
+            File.WriteAllText(appdatafile, jsonoutput);
+
+            var mailinhalt = "Neue Version der Bachelorarbeit vorhanden und aktualisiert! <br/>" +
+                             $"Datum: <b>{timestamp?.LetztesDatum} -> {aktuellesFile.LastWriteTime}</b>";
+            EMail.VersendeMail(mailinhalt, "[BachelorAdmin] Neue Bachelorversion verfügbar!");
         }
     }
 }
