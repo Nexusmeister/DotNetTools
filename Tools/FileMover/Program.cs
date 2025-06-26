@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+
 using Tools.Core.Tools;
 using Tools.Core.Tools.Configuration;
 
@@ -9,14 +13,51 @@ namespace FileMover
     {
         static void Main(string[] args)
         {
-            var config = new FileMoverConfig().GetConfig();
-            var logger = new ToolsLogger();
-            if (string.IsNullOrWhiteSpace(config.QuellOrdner) || string.IsNullOrWhiteSpace(config.ZielOrdner))
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true)
+                .Build();
+
+            var aufgaben = config.GetSection("aufgaben").Get<List<Aufgabe>>();
+
+            foreach (var aufgabe in aufgaben)
             {
-                Environment.Exit(1);
+                if (string.IsNullOrWhiteSpace(aufgabe.Quelle) || string.IsNullOrWhiteSpace(aufgabe.Ziel))
+                {
+                    Environment.Exit(1);
+                }
+
+                var isDirectory = IsDirectory(aufgabe.Quelle);
+
+                if (isDirectory is null)
+                {
+                    Environment.Exit(1);
+                }
+
+                DirectoryCopy(aufgabe.Quelle, aufgabe.Ziel, true);
+            }
+            //var config = new FileMoverConfig().GetConfig();
+            //var logger = new ToolsLogger();
+            //if (string.IsNullOrWhiteSpace(config.QuellOrdner) || string.IsNullOrWhiteSpace(config.ZielOrdner))
+            //{
+            //    Environment.Exit(1);
+            //}
+
+            //DirectoryCopy(config.QuellOrdner, config.ZielOrdner, true);
+        }
+
+        private static bool? IsDirectory(string aufgabeQuelle)
+        {
+            var dir = new DirectoryInfo(aufgabeQuelle);
+            if (!FileOrDirectoryExists(aufgabeQuelle))
+            {
+                return null;
             }
 
-            DirectoryCopy(config.QuellOrdner, config.ZielOrdner, true);
+            return File.GetAttributes(aufgabeQuelle).HasFlag(FileAttributes.Directory);
+        }
+
+        private static bool FileOrDirectoryExists(string name)
+        {
+            return (Directory.Exists(name) || File.Exists(name));
         }
 
         private static void DirectoryCopy(string quellPfad, string zielPfad, bool copySubDirs)
