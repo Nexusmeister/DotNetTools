@@ -1,10 +1,8 @@
 ﻿{
-   "ContextClassName": "BackupDbContext",
+   "ContextClassName": "TimeTrackerDbContext",
    "ContextNamespace": "",
    "DefaultDacpacSchema": null,
-   "DoNotCombineNamespace": false,
-   "IdReplace": false,
-   "IncludeConnectionString": true,
+   "IncludeConnectionString": false,
    "ModelNamespace": "",
    "OutputContextPath": null,
    "OutputPath": null,
@@ -14,22 +12,16 @@
    "Tables": [
       {
          "HasPrimaryKey": true,
-         "Name": "[dbo].[BackupAufgaben]"
-      },
-      {
-         "HasPrimaryKey": true,
-         "Name": "[dbo].[BackupSchedule]"
-      },
-      {
-         "HasPrimaryKey": true,
-         "Name": "[dbo].[OneDriveBereiche]"
+         "Name": "[dbo].[StundenErfassungen]"
       }
    ],
-   "UseDatabaseNames": true,
+   "UseDatabaseNames": false,
    "UseDbContextSplitting": true,
-   "UseFluentApiOnly": true,
+   "UseFluentApiOnly": false,
    "UseHandleBars": false,
-   "UseInflector": false,
+   "UseInflector": true,
    "UseLegacyPluralizer": false,
-   "UseSpatial": false
+   "UseNodaTime": false,
+   "UseSpatial": false,
+   "UseStoredProcedures": false
 }
